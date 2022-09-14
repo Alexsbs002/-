@@ -6,20 +6,18 @@
 from operator import mod
 from turtle import position
 
-print("you enter 19 , 56 - keys. ", " cat - mesage to encrypt\n")
+
 
 def Encrypt(KEYa,KEYb, encrypt):
-    encrypt = encrypt.lower()
+    
     encrypted = ""
     for letter in encrypt:
         M = int(ord(letter))
         encryptedLetter = (KEYa*M+KEYb) % 256
         encrypted = encrypted + chr(encryptedLetter)
-    print("your cipher is ", encrypted,"\n")
+    print(" ENCRYPT: ", encrypted,"\n")
     return encrypted
 
-
-encrypted = Encrypt(19,56, "abc") 
 
 def getModularMultiplicativeInverse(a, n):
     for x in range(2, n):
@@ -37,8 +35,12 @@ def Decrypt(KEYa,KEYb, decrypt):
         decryptedLetter = (getModularMultiplicativeInverse(KEYa, n) * (C - KEYb)) % 256
         
         decrypted = decrypted + chr(decryptedLetter)
-    print("your cipher is ", decrypted,"\n")
+    print("DECRYPT: ", decrypted,"\n")
     return decrypted
 
 
+print(8*"*","Вариант 8, ключ 19 , 56 . словарь 256",8*"*","\n")
+encrypt = "hfeuhufehu feuhfueh ufueh ufhe uu fheu huhfue huf DF E FG E F FFFFFFFFFFFFF DFFFF HFHFHHFHF EHHEH CHECKED " #СЮДА МОЖНО ВВЕСТИ ТЕКСТ ДЛЯ ШИФРОВКИ\ДЕШИФРОВКИ
+print("Text to encrypt is: ' ", encrypt,"'","\n")
+encrypted = Encrypt(19,56, encrypt) 
 Decrypt(19, 56, encrypted)
