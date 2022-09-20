@@ -5,19 +5,22 @@
 
 from operator import mod
 from turtle import position
-
-
+import base64
+import imghdr
+import base64
+import io
+import base64
 
 def Encrypt(KEYa,KEYb, encrypt):#функция шифровки
     
     encrypted = ""
+    
     for letter in encrypt:
         M = int(ord(letter))# порядок символа нахожу при помощи команды ord
         #Возвращает для указанного Юникод-символа целое, представляющее его позицию кода.
         encryptedLetter = (KEYa*M+KEYb) % 256 #шифрование кода символа
         encrypted = encrypted + chr(encryptedLetter)#преобразование нового кода в символ командрой chr
         
-    
     return encrypted
 
 
@@ -40,22 +43,75 @@ def Decrypt(KEYa,KEYb, decrypt):#функция дешифрования
     return decrypted
 
 
+
 print(8*"*","Вариант 8, ключ 19 , 56 . словарь 256",8*"*","\n")
-path = input("enter name of the file - ")
-encryptFile = open(path, mode="rt") #СЮДА МОЖНО ВВЕСТИ ТЕКСТ ДЛЯ ШИФРОВКИ\ДЕШИФРОВКИ 
-encrypt = encryptFile.read() #считывание файла с исходным текстом
-print("\nText to encrypt is: ' ", encrypt,"'","\n") #вывод текста для проверки
-encrypted = Encrypt(19,56, encrypt) #шифровка
-Result = Decrypt(19, 56, encrypted) #дешифровка для проверки
+path = input("enter the name of the file - ")
 
-my_fileEC = open("ResultFileENCRYPTED.txt", "w+", encoding='utf-8') #результат шифровки в отдельный файл
-my_fileEC.write(encrypted)
-my_fileEC.close()
+file = open(path)
+if '.txt' in path:
+    encryptFile = open(path, mode="rt", encoding="utf8") #СЮДА МОЖНО ВВЕСТИ ТЕКСТ ДЛЯ ШИФРОВКИ\ДЕШИФРОВКИ 
+    encrypt = encryptFile.read() #считывание файла с исходным текстом
+    print("\nText to encrypt is: ' ", encrypt,"'","\n") #вывод текста для проверки
+    encrypted = Encrypt(19,56, encrypt) #шифровка
+    Result = Decrypt(19, 56, encrypted) #дешифровка для проверки
 
-my_fileDEC = open("ResultFileDECRYPTED.txt", "w+", encoding='utf-8') #результат дешифровки в отдельный файл
-my_fileDEC.write(Result)
-my_fileDEC.close()
+    my_fileEC = open("ResultFileENCRYPTED.txt", "w+", encoding='utf-8') #результат шифровки в отдельный файл
+    my_fileEC.write(encrypted)
+    my_fileEC.close()
+
+    my_fileDEC = open("ResultFileDECRYPTED.txt", "w+", encoding='utf-8') #результат дешифровки в отдельный файл
+    my_fileDEC.write(Result)
+    my_fileDEC.close()
 
 
-print("progtamm completed, result saved in files 'ResultFileENCRYPTED.txt' + 'ResultFileDECRYPTED.txt' ")
-exit = input()
+    print("progtamm completed, result saved in files 'ResultFileENCRYPTED.txt' + 'ResultFileDECRYPTED.txt' ")
+    exit = input()
+
+elif '.jpg' in path:
+    
+    with open(path,'rb') as f:
+        res = base64.b64encode(f.read())
+
+
+    
+    res = res.decode('utf-8')
+
+    encrypted = Encrypt(19,56, res) #шифровка
+    
+    my_fileEC = open("JPGENCRYPTED.txt", "w+", encoding='utf-8') #результат шифровки в отдельный файл
+    my_fileEC.write(encrypted)
+    my_fileEC.close()
+
+    
+
+    Result = Decrypt(19, 56, encrypted) #дешифровка для проверки
+
+
+
+    img = base64.b64decode(Result)
+    file = open('JPGRESULT.jpg','wb')
+    file.write(img)
+    file.close()
+
+
+
+
+    
+    print("progtamm completed, result saved in files 'ResultFileENCRYPTED.txt' + 'testRESULT.jpg' ")
+    exit = input()
+        
+"""
+b = base64.b64encode(open(path,"rb").read())
+    str = b.decode('utf-8')
+    
+    
+    
+
+
+    
+
+    g = open("out.jpg", "w")
+    g.write(Result)
+    g.close()
+
+    """
