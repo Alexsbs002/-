@@ -16,7 +16,8 @@ def Encrypt(KEYa,KEYb, encrypt):#функция шифровки
         #Возвращает для указанного Юникод-символа целое, представляющее его позицию кода.
         encryptedLetter = (KEYa*M+KEYb) % 256 #шифрование кода символа
         encrypted = encrypted + chr(encryptedLetter)#преобразование нового кода в символ командрой chr
-    print("ENCRYPT: ", encrypted,"\n")
+        
+    
     return encrypted
 
 
@@ -35,14 +36,26 @@ def Decrypt(KEYa,KEYb, decrypt):#функция дешифрования
         decryptedLetter = (getModularMultiplicativeInverse(KEYa, n) * (C - KEYb)) % 256 # дешифрование кода символа по алгоритму 
         
         decrypted = decrypted + chr(decryptedLetter)
-    print("DECRYPT: ", decrypted,"\n")
+    
     return decrypted
 
 
 print(8*"*","Вариант 8, ключ 19 , 56 . словарь 256",8*"*","\n")
-encrypt = "Message i need to hide and to understand" #СЮДА МОЖНО ВВЕСТИ ТЕКСТ ДЛЯ ШИФРОВКИ\ДЕШИФРОВКИ
-print("Text to encrypt is: ' ", encrypt,"'","\n")
-encrypted = Encrypt(19,56, encrypt) 
-Decrypt(19, 56, encrypted)
+path = input("enter name of the file - ")
+encryptFile = open(path, mode="rt") #СЮДА МОЖНО ВВЕСТИ ТЕКСТ ДЛЯ ШИФРОВКИ\ДЕШИФРОВКИ 
+encrypt = encryptFile.read() #считывание файла с исходным текстом
+print("\nText to encrypt is: ' ", encrypt,"'","\n") #вывод текста для проверки
+encrypted = Encrypt(19,56, encrypt) #шифровка
+Result = Decrypt(19, 56, encrypted) #дешифровка для проверки
 
+my_fileEC = open("ResultFileENCRYPTED.txt", "w+", encoding='utf-8') #результат шифровки в отдельный файл
+my_fileEC.write(encrypted)
+my_fileEC.close()
+
+my_fileDEC = open("ResultFileDECRYPTED.txt", "w+", encoding='utf-8') #результат дешифровки в отдельный файл
+my_fileDEC.write(Result)
+my_fileDEC.close()
+
+
+print("progtamm completed, result saved in files 'ResultFileENCRYPTED.txt' + 'ResultFileDECRYPTED.txt' ")
 exit = input()
