@@ -100,6 +100,40 @@ elif '.jpg' in path:
     print("progtamm completed, result saved in files 'ResultFileENCRYPTED.txt' + 'testRESULT.jpg' ")
     exit = input()
         
+
+
+elif '.png' in path:
+    
+    with open(path,'rb') as f:
+        res = base64.b64encode(f.read())
+
+
+    
+    res = res.decode('utf-8')
+
+    encrypted = Encrypt(19,56, res) #шифровка
+    
+    my_fileEC = open("1JPGENCRYPTED.txt", "w+", encoding='utf-8') #результат шифровки в отдельный файл
+    my_fileEC.write(encrypted)
+    my_fileEC.close()
+
+    
+
+    Result = Decrypt(19, 56, encrypted) #дешифровка для проверки
+
+
+
+    img = base64.b64decode(Result)
+    file = open('1JPGRESULT.png','wb')
+    file.write(img)
+    file.close()
+
+
+
+
+    
+    print("progtamm completed, result saved in files 'JPGENCRYPTED.txt' + '1JPGRESULT.png' ")
+    exit = input()
 """
 b = base64.b64encode(open(path,"rb").read())
     str = b.decode('utf-8')
