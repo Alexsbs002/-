@@ -6,10 +6,7 @@
 from operator import mod
 from turtle import position
 import base64
-import imghdr
-import base64
-import io
-import base64
+
 
 def Encrypt(KEYa,KEYb, encrypt):#функция шифровки
     
@@ -97,7 +94,7 @@ elif '.jpg' in path:
 
 
     
-    print("progtamm completed, result saved in files 'ResultFileENCRYPTED.txt' + 'testRESULT.jpg' ")
+    print("progtamm completed, result saved in files 'JPGENCRYPTED.txt' + 'JPGRESULT.jpg' ")
     exit = input()
         
 
@@ -113,7 +110,7 @@ elif '.png' in path:
 
     encrypted = Encrypt(19,56, res) #шифровка
     
-    my_fileEC = open("1JPGENCRYPTED.txt", "w+", encoding='utf-8') #результат шифровки в отдельный файл
+    my_fileEC = open("1PNGENCRYPTED.txt", "w+", encoding='utf-8') #результат шифровки в отдельный файл
     my_fileEC.write(encrypted)
     my_fileEC.close()
 
@@ -124,7 +121,7 @@ elif '.png' in path:
 
 
     img = base64.b64decode(Result)
-    file = open('1JPGRESULT.png','wb')
+    file = open('1PNGRESULT.png','wb')
     file.write(img)
     file.close()
 
@@ -132,20 +129,5 @@ elif '.png' in path:
 
 
     
-    print("progtamm completed, result saved in files 'JPGENCRYPTED.txt' + '1JPGRESULT.png' ")
+    print("progtamm completed, result saved in files 'PNGENCRYPTED.txt' + '1PNGRESULT.png' ")
     exit = input()
-"""
-b = base64.b64encode(open(path,"rb").read())
-    str = b.decode('utf-8')
-    
-    
-    
-
-
-    
-
-    g = open("out.jpg", "w")
-    g.write(Result)
-    g.close()
-
-    """
